@@ -129,13 +129,53 @@ function App() {
   const getReportFingerprint = (r) => {
     if (r?.fingerprint) return r.fingerprint
     if (r?.image_hash) return r.image_hash
-    const signature = [r?.location, r?.risk_level, r?.help_needed, r?.description].filter(Boolean).join('|')
+    const signature = [r?.location, r?.risk_level, r?.help_needed].filter(Boolean).join('|')
     return hashString(signature)
   }
 
+  const parseLocation = (locStr) => {
+    if (!locStr) return null
+    const parts = String(locStr).split(',').map(x => parseFloat(x.trim()))
+    if (parts.length === 2 && !isNaN(parts[0]) && !isNaN(parts[1])) {
+      return { lat: parts[0], lng: parts[1] }
+    }
+    return null
+  }
+
   const findDuplicateReport = (r, list = []) => {
-    const fp = getReportFingerprint(r)
-    return list.find((x) => getReportFingerprint(x) === fp) || null
+    return list.find((x) => {
+      // Don't match against self
+      if (x.id === r.id) return false
+
+      // Check 1: Identical image hashes
+      if (r.image_hash && x.image_hash && r.image_hash === x.image_hash) {
+        return true
+      }
+
+      // Check 2: Same classified help needed category AND close spatial proximity (approx ~500m / 0.005 degrees)
+      if (r.help_needed && x.help_needed && r.help_needed.toLowerCase().trim() === x.help_needed.toLowerCase().trim()) {
+        const p1 = parseLocation(r.location)
+        const p2 = parseLocation(x.location)
+        if (p1 && p2) {
+          const dLat = Math.abs(p1.lat - p2.lat)
+          const dLng = Math.abs(p1.lng - p2.lng)
+          if (dLat <= 0.005 && dLng <= 0.005) {
+            return true
+          }
+        } else if (r.location && x.location && r.location === x.location) {
+          return true
+        }
+      }
+
+      // Check 3: Fingerprint direct match (legacy fallback)
+      const fp1 = getReportFingerprint(r)
+      const fp2 = getReportFingerprint(x)
+      if (fp1 && fp2 && fp1 === fp2) {
+        return true
+      }
+
+      return false
+    }) || null
   }
 
   const makeReportId = () => {
@@ -212,8 +252,16 @@ function App() {
       }
 
       const report = buildReportFromAnalysis(finalAnalysis, image)
-      setReports((prev) => [report, ...prev])
-      broadcastReport?.(report)
+      setReports((prev) => {
+        const duplicate = findDuplicateReport(report, prev)
+        const finalReport = {
+          ...report,
+          is_duplicate: Boolean(duplicate),
+          duplicate_of: duplicate?.id || null,
+        }
+        broadcastReport?.(finalReport)
+        return [finalReport, ...prev]
+      })
       setRecordingStatus('Ready to capture frames')
     } catch (err) {
       const urlHint = gemmaApiUrl ? ` (${gemmaApiUrl})` : ''
