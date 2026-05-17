@@ -1,0 +1,25 @@
+# Virtual Environment
+.venv/
+__pycache__/
+*.pyc
+
+# Node dependencies and builds
+node_modules/
+dist/
+dist-ssr/
+
+# Developer Docs
+dev_docs
+
+# Environment Variables
+.env
+.env*.local
+
+# Logs and system files
+*.log
+.DS_Store
+Thumbs.db
+.gemini/
+.antigravity/
+.idea/
+.vscode/
