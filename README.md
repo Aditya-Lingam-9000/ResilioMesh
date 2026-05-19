@@ -7,6 +7,12 @@
 
 Resilio Mesh is a next-generation, decentralized, offline-first crisis coordination and tactical response platform. Designed specifically for critical environments where power grids, cellular networks, and internet backbones have collapsed, Resilio Mesh combines **local peer-to-peer WebRTC networking**, **on-device multimodal Vision-Language Models (VLMs)**, and **remote strategic AI orchestration** into a robust, life-saving operational dashboard.
 
+Kaggle Competition: [The Gemma 4 Good Hackathon](https://www.kaggle.com/competitions/gemma-4-good-hackathon)
+
+Kaggle Writeup: [See Here](https://www.kaggle.com/competitions/gemma-4-good-hackathon/writeups/new-writeup-1779019685794)
+
+Demo Functional Video: [See Here](https://youtu.be/NNO-HyQeo1I?si=mxk4crp0kzD-ySGl)
+
 ---
 
 ### For instructions on setting up this project on a new machine, please refer to [docs/New_Machine_Setup_Guide.md](docs/New_Machine_Setup_Guide.md).
