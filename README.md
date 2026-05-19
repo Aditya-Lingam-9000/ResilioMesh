@@ -9,7 +9,7 @@ Resilio Mesh is a next-generation, decentralized, offline-first crisis coordinat
 
 ---
 
-### For instructions on setting up this project on a new machine, please refer to "docs/New_Machine_Setup_Guide.md"
+### For instructions on setting up this project on a new machine, please refer to [docs/New_Machine_Setup_Guide.md](docs/New_Machine_Setup_Guide.md).
 
 ---
 
