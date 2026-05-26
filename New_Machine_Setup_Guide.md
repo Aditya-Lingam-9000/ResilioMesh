@@ -48,51 +48,11 @@ The Resilio Mesh is a crisis response platform built on a dual-tier AI coordinat
 
 ## Phase 1: Source Code Migration via GitHub
 
-Use these steps to package the current working repository from the **original machine**, upload it to GitHub, and pull it down on the **new laptop**.
-
-### Step 1: Initialize Git and Prepare `.gitignore`
-On the **original machine**, ensure that local environment files, system cache, and dependencies are not checked into source control. A root-level `.gitignore` has been pre-configured to avoid tracking heavy virtual environments (`.venv`), node modules (`node_modules`), or local secrets (`.env`).
-
-To verify Git status, open a terminal in the project root (`c:\Users\ADITYA LINGAM\Desktop\ResilioMesh`):
-```powershell
-git status
-```
-
-If Git is not yet initialized in the repository, initialize it and commit the clean codebase:
-```powershell
-# Initialize git repository
-git init
-
-# Stage all files (respecting .gitignore)
-git add .
-
-# Create the initial commit
-git commit -m "feat: complete resilio mesh system with local VLM and basecamp strategic orchestration"
-```
-
-### Step 2: Push to GitHub
-1. Open your web browser, navigate to [GitHub](https://github.com/), and log in.
-2. Click **New Repository**.
-3. Set the Repository Name to `ResilioMesh`.
-4. Choose **Private** (recommended) or **Public** depending on your needs. Leave "Add a README", ".gitignore", and "license" unchecked.
-5. Copy the remote URL (e.g., `https://github.com/YOUR_USERNAME/ResilioMesh.git`).
-6. Back in your terminal on the **original machine**, link the remote and push:
-```powershell
-# Add the remote repository
-git remote add origin https://github.com/YOUR_USERNAME/ResilioMesh.git
-
-# Set main branch name
-git branch -M main
-
-# Push code to GitHub
-git push -u origin main
-```
-
-### Step 3: Clone Code onto the New Machine
+### Step 1: Clone Code onto the New Machine
 On the **new laptop**, open your terminal, navigate to the directory where you want to store the project (e.g., `C:\Users\NEW_USER\Desktop`), and clone the repository:
 ```powershell
 # Clone the repository
-git clone https://github.com/YOUR_USERNAME/ResilioMesh.git
+git clone https://github.com/Aditya-Lingam-9000/ResilioMesh.git
 
 # Navigate into the project folder
 cd ResilioMesh
@@ -213,7 +173,7 @@ In the left sidebar of your Google Colab window, click the **🔑 (Secrets)** ic
 ### Step 4: Link Frontend to Colab Backend
 On the **new laptop**, open `frontend/.env` and update the value:
 ```env
-VITE_BASECAMP_API_URL=https://unhurting-nonmediative-deegan.ngrok-free.dev
+VITE_BASECAMP_API_URL=https://your-ngrok-subdomain.ngrok-free.dev
 ```
 
 ---
